@@ -1,10 +1,11 @@
-# [Project name]
+# Oficinas Mecânicas
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Sistema web completo para gerenciamento de oficinas mecânicas e veículos — CRUD de oficinas e veículos, histórico de manutenções e dashboard com estatísticas em tempo real.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080)
+- `pnpm --filter @workspace/oficinas-app run dev` — run the frontend (port varies)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -14,6 +15,7 @@ _Replace the heading above with the project's name, and this line with one sente
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
+- Frontend: React + Vite, TanStack Query, Wouter, Tailwind CSS, Recharts, Sonner
 - API: Express 5
 - DB: PostgreSQL + Drizzle ORM
 - Validation: Zod (`zod/v4`), `drizzle-zod`
@@ -22,15 +24,24 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `lib/api-spec/openapi.yaml` — OpenAPI spec (source of truth for all API contracts)
+- `lib/db/src/schema/` — Drizzle table definitions (oficinas, veiculos, manutencoes)
+- `artifacts/api-server/src/routes/` — Express route handlers
+- `artifacts/oficinas-app/src/` — React frontend (pages, components, hooks)
+- `lib/api-client-react/src/generated/` — Generated React Query hooks (do not edit)
+- `lib/api-zod/src/generated/` — Generated Zod schemas for server validation (do not edit)
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- OpenAPI-first: all endpoints defined in `openapi.yaml`, then generated via Orval into hooks + Zod schemas
+- Manutencoes schema omits an `oficina_id` FK — the `oficinaNome` in GET /veiculos/:id is derived from the vehicle's current oficina (best-effort display label)
+- All route handlers use `return` after `res.*()` calls to satisfy TypeScript TS7030 (no implicit returns)
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- **Dashboard**: cards with totals (oficinas, veículos, manutenções) + bar chart by year + recent vehicles list
+- **Oficinas**: list with real-time search, create/edit/delete (with confirm dialog), detail view showing vehicles served
+- **Veículos**: list with real-time search, create/edit/delete, detail view showing maintenance history
 
 ## User preferences
 
@@ -38,7 +49,9 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- After any OpenAPI spec change, always run `pnpm --filter @workspace/api-spec codegen` before touching backend or frontend code
+- Drizzle `oficinasTable` uses `set null` on delete (veiculos.oficina_id); `manutencoesTable` uses `cascade` on delete (from veiculos)
+- Route handlers must use explicit `return` before `res.json()/res.status()` calls to avoid TS7030 errors
 
 ## Pointers
 

@@ -3,13 +3,19 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: API specification for Oficinas Mecânicas management system
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: oficinas
+    description: Oficinas (auto repair shops) operations
+  - name: veiculos
+    description: Veículos (vehicles) operations
+  - name: dashboard
+    description: Dashboard statistics
 paths:
   /healthz:
     get:
@@ -24,6 +30,257 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /oficina:
+    get:
+      operationId: listOficinas
+      tags: [oficinas]
+      summary: List all oficinas
+      responses:
+        "200":
+          description: List of oficinas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Oficina"
+    post:
+      operationId: createOficina
+      tags: [oficinas]
+      summary: Create a new oficina
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OficinaInput"
+      responses:
+        "201":
+          description: Oficina created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Oficina"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /oficina/{id}:
+    get:
+      operationId: getOficina
+      tags: [oficinas]
+      summary: Get oficina by ID (includes vehicles served)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Oficina with vehicles
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OficinaWithVeiculos"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: updateOficina
+      tags: [oficinas]
+      summary: Update an oficina
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OficinaInput"
+      responses:
+        "200":
+          description: Oficina updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Oficina"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteOficina
+      tags: [oficinas]
+      summary: Delete an oficina
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /veiculos:
+    get:
+      operationId: listVeiculos
+      tags: [veiculos]
+      summary: List all vehicles
+      responses:
+        "200":
+          description: List of vehicles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Veiculo"
+    post:
+      operationId: createVeiculo
+      tags: [veiculos]
+      summary: Create a new vehicle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VeiculoInput"
+      responses:
+        "201":
+          description: Vehicle created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Veiculo"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /veiculos/{id}:
+    get:
+      operationId: getVeiculo
+      tags: [veiculos]
+      summary: Get vehicle by ID (includes maintenance history)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Vehicle with maintenance history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VeiculoWithManutencoes"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    put:
+      operationId: updateVeiculo
+      tags: [veiculos]
+      summary: Update a vehicle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VeiculoInput"
+      responses:
+        "200":
+          description: Vehicle updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Veiculo"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteVeiculo
+      tags: [veiculos]
+      summary: Delete a vehicle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get dashboard statistics
+      responses:
+        "200":
+          description: Dashboard statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /dashboard/veiculos-por-ano:
+    get:
+      operationId: getVeiculosPorAno
+      tags: [dashboard]
+      summary: Get vehicles count grouped by year
+      responses:
+        "200":
+          description: Vehicles grouped by year
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/VeiculosPorAno"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +291,161 @@ components:
       required:
         - status
 
+    Oficina:
+      type: object
+      required: [id, nome, endereco, especialidades, createdAt]
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        endereco:
+          type: string
+        especialidades:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    OficinaInput:
+      type: object
+      required: [nome, endereco, especialidades]
+      properties:
+        nome:
+          type: string
+          minLength: 1
+        endereco:
+          type: string
+          minLength: 1
+        especialidades:
+          type: string
+          minLength: 1
+
+    OficinaWithVeiculos:
+      type: object
+      required: [id, nome, endereco, especialidades, createdAt, veiculos]
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        endereco:
+          type: string
+        especialidades:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        veiculos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Veiculo"
+
+    Veiculo:
+      type: object
+      required: [id, placa, modelo, ano, proprietario, createdAt]
+      properties:
+        id:
+          type: integer
+        placa:
+          type: string
+        modelo:
+          type: string
+        ano:
+          type: string
+        proprietario:
+          type: string
+        oficinaId:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+          format: date-time
+
+    VeiculoInput:
+      type: object
+      required: [placa, modelo, ano, proprietario]
+      properties:
+        placa:
+          type: string
+          minLength: 1
+        modelo:
+          type: string
+          minLength: 1
+        ano:
+          type: string
+          minLength: 1
+        proprietario:
+          type: string
+          minLength: 1
+        oficinaId:
+          type: ["integer", "null"]
+
+    VeiculoWithManutencoes:
+      type: object
+      required: [id, placa, modelo, ano, proprietario, createdAt, manutencoes]
+      properties:
+        id:
+          type: integer
+        placa:
+          type: string
+        modelo:
+          type: string
+        ano:
+          type: string
+        proprietario:
+          type: string
+        oficinaId:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+          format: date-time
+        manutencoes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Manutencao"
+
+    Manutencao:
+      type: object
+      required: [id, descricao, data, veiculoId, createdAt]
+      properties:
+        id:
+          type: integer
+        descricao:
+          type: string
+        data:
+          type: string
+          format: date-time
+        veiculoId:
+          type: integer
+        oficinaNome:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+          format: date-time
+
+    DashboardStats:
+      type: object
+      required: [totalOficinas, totalVeiculos, totalManutencoes]
+      properties:
+        totalOficinas:
+          type: integer
+        totalVeiculos:
+          type: integer
+        totalManutencoes:
+          type: integer
+
+    VeiculosPorAno:
+      type: object
+      required: [ano, total]
+      properties:
+        ano:
+          type: string
+        total:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string

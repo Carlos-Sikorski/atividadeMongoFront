@@ -1,0 +1,348 @@
+Prompt
+
+Você é um desenvolvedor Front-end Sênior especialista em React.js.
+
+Desenvolva um sistema web completo para gerenciamento de oficinas mecânicas consumindo a API REST descrita abaixo.
+
+Stack obrigatória
+React.js
+JavaScript (ES6+)
+React Router DOM
+Axios
+CSS Modules ou CSS puro
+React Hooks
+Context API (caso necessário)
+Estrutura de projeto organizada e escalável
+
+Não utilize TypeScript.
+
+Objetivo
+
+Criar um CRUD completo para gerenciamento de oficinas e veículos.
+
+O sistema deve possuir uma aparência moderna, limpa e responsiva, semelhante a sistemas administrativos profissionais.
+
+Utilize boas práticas de desenvolvimento, componentização, separação de responsabilidades e código limpo.
+
+Estrutura desejada
+src/
+
+components/
+    Navbar
+    Sidebar
+    Button
+    Input
+    Modal
+    Table
+    Card
+    Loading
+    ConfirmDelete
+    SearchBar
+
+pages/
+
+    Dashboard
+
+    Oficinas
+        ListaOficinas
+        CadastroOficina
+        EditarOficina
+        DetalhesOficina
+
+    Veiculos
+        ListaVeiculos
+        CadastroVeiculo
+        EditarVeiculo
+        DetalhesVeiculo
+
+services/
+    api.js
+    oficinaService.js
+    veiculoService.js
+
+hooks/
+
+contexts/
+
+styles/
+
+App.jsx
+main.jsx
+API
+Oficinas
+
+Cadastrar
+
+POST
+
+/oficina
+
+Body
+
+{
+    "nome": "",
+    "endereco": "",
+    "especialidades": ""
+}
+
+Listar
+
+GET
+
+/oficina
+
+Buscar por ID
+
+GET
+
+/oficina/:id
+
+Retorna os veículos atendidos pela oficina.
+
+Atualizar
+
+PUT
+
+/oficina/:id
+
+Body
+
+{
+    "nome": "",
+    "endereco": "",
+    "especialidades": ""
+}
+
+Excluir
+
+DELETE
+
+/oficina/:id
+Veículos
+
+Cadastrar
+
+POST
+
+/veiculos
+
+Body
+
+{
+    "placa":"",
+    "modelo":"",
+    "ano":"",
+    "proprietario":""
+}
+
+Listar
+
+GET
+
+/veiculos
+
+Buscar por ID
+
+GET
+
+/veiculos/:id
+
+Retorna as manutenções realizadas do veículo.
+
+Atualizar
+
+PUT
+
+/veiculos/:id
+
+Body
+
+{
+    "placa":"",
+    "modelo":"",
+    "ano":"",
+    "proprietario":""
+}
+
+Excluir
+
+DELETE
+
+/veiculos/:id
+Dashboard
+
+Criar uma Dashboard contendo:
+
+Cards
+
+Total de oficinas
+Total de veículos
+
+Gráficos (dados simulados caso a API não possua)
+
+Veículos por ano
+Oficinas cadastradas
+Tela de Oficinas
+
+Tabela contendo
+
+Nome
+Endereço
+Especialidades
+
+Botões
+
+Visualizar
+Editar
+Excluir
+
+Barra de pesquisa.
+
+Botão "Nova Oficina".
+
+Ao clicar em visualizar, exibir todos os veículos atendidos por aquela oficina.
+
+Cadastro de Oficina
+
+Formulário com:
+
+Nome
+Endereço
+Especialidades
+
+Validações:
+
+Todos os campos obrigatórios.
+
+Após salvar:
+
+Toast de sucesso
+Redirecionar para listagem.
+Tela de Veículos
+
+Tabela contendo
+
+Placa
+Modelo
+Ano
+Proprietário
+
+Botões
+
+Editar
+Visualizar
+Excluir
+
+Campo de pesquisa.
+
+Botão "Novo Veículo".
+
+Cadastro de Veículo
+
+Campos
+
+Placa
+Modelo
+Ano
+Proprietário
+
+Validação completa.
+
+Detalhes do Veículo
+
+Ao acessar
+
+GET /veiculos/:id
+
+Mostrar:
+
+Lista de manutenções realizadas.
+
+Axios
+
+Criar um arquivo
+
+api.js
+
+com
+
+import axios from "axios";
+
+export default axios.create({
+    baseURL: "http://localhost:3000"
+});
+
+Criar services separados
+
+oficinaService.js
+veiculoService.js
+
+com todas as chamadas da API.
+
+Componentes reutilizáveis
+
+Criar componentes para:
+
+Botão
+Campo Input
+Card
+Modal
+Loading
+Spinner
+Navbar
+Sidebar
+ConfirmDelete
+Tabela
+Paginação (caso necessário)
+Interface
+
+Tema moderno.
+
+Paleta:
+
+Azul (#2563eb)
+Branco
+Cinza claro
+Preto
+
+Cards com sombras suaves.
+
+Botões com hover.
+
+Animações discretas.
+
+Layout semelhante aos sistemas administrativos modernos.
+
+Totalmente responsivo.
+
+Funcionalidades
+Loading durante requisições
+Tratamento de erros
+Mensagens de sucesso
+Confirmação antes de excluir
+Pesquisa em tempo real
+Atualização automática das listas
+Organização em componentes reutilizáveis
+Código comentado quando necessário
+Qualidade do código
+
+Utilizar:
+
+Clean Code
+SOLID (quando aplicável)
+Componentização máxima
+Hooks
+Funções assíncronas com async/await
+Tratamento de erros com try/catch
+Organização profissional de pastas
+
+Evite duplicação de código.
+
+Entrega esperada
+
+Gerar um projeto React completo, pronto para executar com:
+
+npm install
+npm run dev
+
+incluindo todos os componentes, páginas, serviços, rotas, estilos e integração completa com a API REST fornecida, utilizando apenas React.js e JavaScript, seguindo boas práticas de desenvolvimento front-end e uma arquitetura escalável.
