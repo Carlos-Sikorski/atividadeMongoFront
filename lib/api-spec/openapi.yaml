@@ -5,7 +5,7 @@ info:
   version: 0.1.0
   description: API specification for Oficinas Mecânicas management system
 servers:
-  - url: /api
+  - url: /
     description: Base API path
 tags:
   - name: health
