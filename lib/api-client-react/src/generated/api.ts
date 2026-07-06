@@ -64,7 +64,7 @@ export const getHealthCheckUrl = () => {
 
 
 
-  return `/api/healthz`
+  return `/healthz`
 }
 
 /**
@@ -88,7 +88,7 @@ export const healthCheck = async ( options?: RequestInit): Promise<HealthStatus>
 
 export const getHealthCheckQueryKey = () => {
     return [
-    `/api/healthz`
+    `/healthz`
     ] as const;
     }
 
@@ -142,7 +142,7 @@ export const getListOficinasUrl = () => {
 
 
 
-  return `/api/oficina`
+  return `/oficina`
 }
 
 /**
@@ -165,7 +165,7 @@ export const listOficinas = async ( options?: RequestInit): Promise<Oficina[]> =
 
 export const getListOficinasQueryKey = () => {
     return [
-    `/api/oficina`
+    `/oficina`
     ] as const;
     }
 
@@ -219,7 +219,7 @@ export const getCreateOficinaUrl = () => {
 
 
 
-  return `/api/oficina`
+  return `/oficina`
 }
 
 /**
@@ -289,7 +289,7 @@ export const getGetOficinaUrl = (id: number,) => {
 
 
 
-  return `/api/oficina/${id}`
+  return `/oficina/${id}`
 }
 
 /**
@@ -312,7 +312,7 @@ export const getOficina = async (id: number, options?: RequestInit): Promise<Ofi
 
 export const getGetOficinaQueryKey = (id: number,) => {
     return [
-    `/api/oficina/${id}`
+    `/oficina/${id}`
     ] as const;
     }
 
@@ -366,7 +366,7 @@ export const getUpdateOficinaUrl = (id: number,) => {
 
 
 
-  return `/api/oficina/${id}`
+  return `/oficina/${id}`
 }
 
 /**
@@ -437,7 +437,7 @@ export const getDeleteOficinaUrl = (id: number,) => {
 
 
 
-  return `/api/oficina/${id}`
+  return `/oficina/${id}`
 }
 
 /**
@@ -507,7 +507,7 @@ export const getListVeiculosUrl = () => {
 
 
 
-  return `/api/veiculos`
+  return `/veiculos`
 }
 
 /**
@@ -530,7 +530,7 @@ export const listVeiculos = async ( options?: RequestInit): Promise<Veiculo[]> =
 
 export const getListVeiculosQueryKey = () => {
     return [
-    `/api/veiculos`
+    `/veiculos`
     ] as const;
     }
 
@@ -584,7 +584,7 @@ export const getCreateVeiculoUrl = () => {
 
 
 
-  return `/api/veiculos`
+  return `/veiculos`
 }
 
 /**
@@ -654,7 +654,7 @@ export const getGetVeiculoUrl = (id: number,) => {
 
 
 
-  return `/api/veiculos/${id}`
+  return `/veiculos/${id}`
 }
 
 /**
@@ -677,7 +677,7 @@ export const getVeiculo = async (id: number, options?: RequestInit): Promise<Vei
 
 export const getGetVeiculoQueryKey = (id: number,) => {
     return [
-    `/api/veiculos/${id}`
+    `/veiculos/${id}`
     ] as const;
     }
 
@@ -731,7 +731,7 @@ export const getUpdateVeiculoUrl = (id: number,) => {
 
 
 
-  return `/api/veiculos/${id}`
+  return `/veiculos/${id}`
 }
 
 /**
@@ -802,7 +802,7 @@ export const getDeleteVeiculoUrl = (id: number,) => {
 
 
 
-  return `/api/veiculos/${id}`
+  return `/veiculos/${id}`
 }
 
 /**
@@ -872,7 +872,7 @@ export const getGetDashboardStatsUrl = () => {
 
 
 
-  return `/api/dashboard/stats`
+  return `/dashboard/stats`
 }
 
 /**
@@ -895,7 +895,7 @@ export const getDashboardStats = async ( options?: RequestInit): Promise<Dashboa
 
 export const getGetDashboardStatsQueryKey = () => {
     return [
-    `/api/dashboard/stats`
+    `/dashboard/stats`
     ] as const;
     }
 
@@ -949,7 +949,7 @@ export const getGetVeiculosPorAnoUrl = () => {
 
 
 
-  return `/api/dashboard/veiculos-por-ano`
+  return `/dashboard/veiculos-por-ano`
 }
 
 /**
@@ -972,7 +972,7 @@ export const getVeiculosPorAno = async ( options?: RequestInit): Promise<Veiculo
 
 export const getGetVeiculosPorAnoQueryKey = () => {
     return [
-    `/api/dashboard/veiculos-por-ano`
+    `/dashboard/veiculos-por-ano`
     ] as const;
     }
 
