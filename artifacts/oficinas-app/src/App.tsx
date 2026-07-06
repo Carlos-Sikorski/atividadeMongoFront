@@ -1,6 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner'; // Using sonner as per instructions
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { setBaseUrl } from '@workspace/api-client-react';
+
+setBaseUrl('https://atividademongo.onrender.com');
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 
 import { Shell } from "@/components/layout/Shell";
