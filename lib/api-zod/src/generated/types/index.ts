@@ -6,7 +6,6 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export * from './dashboardStats';
 export * from './errorResponse';
 export * from './healthStatus';
 export * from './manutencao';
@@ -15,5 +14,4 @@ export * from './oficinaInput';
 export * from './oficinaWithVeiculos';
 export * from './veiculo';
 export * from './veiculoInput';
-export * from './veiculosPorAno';
 export * from './veiculoWithManutencoes';

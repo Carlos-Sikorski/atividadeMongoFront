@@ -81,17 +81,6 @@ export interface VeiculoWithManutencoes {
   manutencoes: Manutencao[];
 }
 
-export interface DashboardStats {
-  totalOficinas: number;
-  totalVeiculos: number;
-  totalManutencoes: number;
-}
-
-export interface VeiculosPorAno {
-  ano: string;
-  total: number;
-}
-
 export interface ErrorResponse {
   error: string;
 }

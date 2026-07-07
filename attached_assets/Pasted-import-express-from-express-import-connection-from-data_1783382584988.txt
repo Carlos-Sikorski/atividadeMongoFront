@@ -1,0 +1,129 @@
+import express from "express";
+import connection from "./database/connection.db.js"
+import cors from "cors";
+import { atualizarOficinaMetodo, cadastrarOficinaMetodo, listarOficinasMetodo, listarOficinasIdMetodo, deletarOficinasMetodo } from "../repository/service/serviceOficina.js";
+import { atualizarVeiculosMetodo, cadastrarVeiculoMetodo, deletarVeiculoMetodo, listarVeiculosIdMetodo, listarVeiculosMetodo } from "../repository/service/serviceVeiculo.js";
+
+const app = express();
+
+const port = 3000;
+
+app.use(cors());
+app.use(express.json());
+
+app.listen(port, () => {
+    console.log(`Server rodando na porta ${port}`);
+})
+
+// OFICINA ROTAS //
+
+
+app.post("/oficina", async (req, res) => {
+    try {
+        const oficina = req.body
+        const novaOficina = await cadastrarOficinaMetodo(oficina)
+        res.status(201).json(novaOficina)
+    } catch (error) {
+        res.status(404).json({ message: "Erro ao cadastrar a oficina", error: error.message })
+    }
+})
+
+app.get("/oficina", async (req, res) => {
+    try {
+        const listarOficina = await listarOficinasMetodo()
+        res.status(200).json(listarOficina)
+
+    } catch (error) {
+        return res.status(404).json({ message: "Erro ao listar oficinas cadastradas." })
+    }
+})
+
+app.get("/oficina/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const listarOficinaById = await listarOficinasIdMetodo(id)
+        res.status(200).json(listarOficinaById)
+    } catch (error) {
+        return res.status(404).json({ message: "Erro ao listar veiculos atendidos", error: error.message })
+    }
+
+})
+
+app.put("/oficina/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const idOficina = req.body
+        const oficinaAt = await atualizarOficinaMetodo(id, idOficina)
+        res.status(201).json(oficinaAt)
+    } catch (error) {
+        res.status(404).json({ message: "Erro ao atualizar oficina: ", error: error.message })
+    }
+})
+
+app.delete("/oficina/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const oficinaDeletada = await deletarOficinasMetodo(id)
+        res.status(200).json(oficinaDeletada)
+    } catch (error) {
+        res.status(404).json({ message: "Erro ao deletar oficina: ", error: error.message })
+    }
+})
+
+//VEICULOS ROTAS//
+
+app.get("/veiculos", async (req, res) => {
+    try {
+        const listarVeiculos = await listarVeiculosMetodo()
+        res.status(200).json(listarVeiculos)
+
+    } catch (error) {
+        return res.status(404).json({ message: "Erro ao listar veiculos cadastrados." })
+    }
+})
+
+app.get("/veiculos/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const listarManutencoesID = await listarVeiculosIdMetodo(id)
+        res.status(200).json(listarManutencoesID)
+    } catch (error) {
+        return res.status(404).json({ message: "Erro ao listar manutenções por veículo", error: error.message })
+    }
+
+})
+
+app.post("/veiculos", async (req, res) => {
+    try {
+        const veiculos = req.body
+        const novoVeiculo = await cadastrarVeiculoMetodo(veiculos)
+        res.status(201).json(novoVeiculo)
+    } catch (error) {
+        return res.status(404).json({ message: "Erro ao cadastra veiculo.", error: error.message})
+    }
+})
+
+app.put("/veiculos/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+
+        const at_veiculos = req.body
+
+        const novoVeiculoCd = await atualizarVeiculosMetodo(id, at_veiculos)
+
+        res.status(201).json(novoVeiculoCd)
+    } catch (error) {
+        return res.status(404).json({message: "Erro ao atualizar veículo.", error: error.message})
+    }
+})
+
+app.delete("/veiculos/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const veiculoDeletado = await deletarVeiculoMetodo(id)
+        res.status(200).json(veiculoDeletado)
+    } catch (error) {
+        res.status(404).json({ message: "Erro ao deletar veiculo: ", error: error.message })
+    }
+})
+

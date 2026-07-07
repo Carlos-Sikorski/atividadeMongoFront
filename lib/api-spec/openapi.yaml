@@ -14,8 +14,6 @@ tags:
     description: Oficinas (auto repair shops) operations
   - name: veiculos
     description: Veículos (vehicles) operations
-  - name: dashboard
-    description: Dashboard statistics
 paths:
   /healthz:
     get:
@@ -253,34 +251,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
 
-  /dashboard/stats:
-    get:
-      operationId: getDashboardStats
-      tags: [dashboard]
-      summary: Get dashboard statistics
-      responses:
-        "200":
-          description: Dashboard statistics
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DashboardStats"
-
-  /dashboard/veiculos-por-ano:
-    get:
-      operationId: getVeiculosPorAno
-      tags: [dashboard]
-      summary: Get vehicles count grouped by year
-      responses:
-        "200":
-          description: Vehicles grouped by year
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/VeiculosPorAno"
-
 components:
   schemas:
     HealthStatus:
@@ -422,26 +392,6 @@ components:
         createdAt:
           type: string
           format: date-time
-
-    DashboardStats:
-      type: object
-      required: [totalOficinas, totalVeiculos, totalManutencoes]
-      properties:
-        totalOficinas:
-          type: integer
-        totalVeiculos:
-          type: integer
-        totalManutencoes:
-          type: integer
-
-    VeiculosPorAno:
-      type: object
-      required: [ano, total]
-      properties:
-        ano:
-          type: string
-        total:
-          type: integer
 
     ErrorResponse:
       type: object

@@ -20,7 +20,6 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  DashboardStats,
   ErrorResponse,
   HealthStatus,
   Oficina,
@@ -28,8 +27,7 @@ import type {
   OficinaWithVeiculos,
   Veiculo,
   VeiculoInput,
-  VeiculoWithManutencoes,
-  VeiculosPorAno
+  VeiculoWithManutencoes
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -866,158 +864,4 @@ export const useDeleteVeiculo = <TError = ErrorType<ErrorResponse>,
       > => {
       return useMutation(getDeleteVeiculoMutationOptions(options));
     }
-
-export const getGetDashboardStatsUrl = () => {
-
-
-
-
-  return `/dashboard/stats`
-}
-
-/**
- * @summary Get dashboard statistics
- */
-export const getDashboardStats = async ( options?: RequestInit): Promise<DashboardStats> => {
-
-  return customFetch<DashboardStats>(getGetDashboardStatsUrl(),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetDashboardStatsQueryKey = () => {
-    return [
-    `/dashboard/stats`
-    ] as const;
-    }
-
-
-export const getGetDashboardStatsQueryOptions = <TData = Awaited<ReturnType<typeof getDashboardStats>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getDashboardStats>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetDashboardStatsQueryKey();
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getDashboardStats>>> = ({ signal }) => getDashboardStats({ signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getDashboardStats>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetDashboardStatsQueryResult = NonNullable<Awaited<ReturnType<typeof getDashboardStats>>>
-export type GetDashboardStatsQueryError = ErrorType<unknown>
-
-
-/**
- * @summary Get dashboard statistics
- */
-
-export function useGetDashboardStats<TData = Awaited<ReturnType<typeof getDashboardStats>>, TError = ErrorType<unknown>>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getDashboardStats>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetDashboardStatsQueryOptions(options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
-
-export const getGetVeiculosPorAnoUrl = () => {
-
-
-
-
-  return `/dashboard/veiculos-por-ano`
-}
-
-/**
- * @summary Get vehicles count grouped by year
- */
-export const getVeiculosPorAno = async ( options?: RequestInit): Promise<VeiculosPorAno[]> => {
-
-  return customFetch<VeiculosPorAno[]>(getGetVeiculosPorAnoUrl(),
-  {
-    ...options,
-    method: 'GET'
-
-
-  }
-);}
-
-
-
-
-
-export const getGetVeiculosPorAnoQueryKey = () => {
-    return [
-    `/dashboard/veiculos-por-ano`
-    ] as const;
-    }
-
-
-export const getGetVeiculosPorAnoQueryOptions = <TData = Awaited<ReturnType<typeof getVeiculosPorAno>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getVeiculosPorAno>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetVeiculosPorAnoQueryKey();
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getVeiculosPorAno>>> = ({ signal }) => getVeiculosPorAno({ signal, ...requestOptions });
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getVeiculosPorAno>>, TError, TData> & { queryKey: QueryKey }
-}
-
-export type GetVeiculosPorAnoQueryResult = NonNullable<Awaited<ReturnType<typeof getVeiculosPorAno>>>
-export type GetVeiculosPorAnoQueryError = ErrorType<unknown>
-
-
-/**
- * @summary Get vehicles count grouped by year
- */
-
-export function useGetVeiculosPorAno<TData = Awaited<ReturnType<typeof getVeiculosPorAno>>, TError = ErrorType<unknown>>(
-  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getVeiculosPorAno>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
-
- ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
-
-  const queryOptions = getGetVeiculosPorAnoQueryOptions(options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
 

@@ -226,23 +226,3 @@ export const DeleteVeiculoParams = zod.object({
 export const DeleteVeiculoResponse = zod.void()
 
 
-/**
- * @summary Get dashboard statistics
- */
-export const GetDashboardStatsResponse = zod.object({
-  "totalOficinas": zod.number(),
-  "totalVeiculos": zod.number(),
-  "totalManutencoes": zod.number()
-})
-
-
-/**
- * @summary Get vehicles count grouped by year
- */
-export const GetVeiculosPorAnoResponseItem = zod.object({
-  "ano": zod.string(),
-  "total": zod.number()
-})
-export const GetVeiculosPorAnoResponse = zod.array(GetVeiculosPorAnoResponseItem)
-
-
